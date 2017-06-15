@@ -11,7 +11,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/etix/geoip"
 	"github.com/Myself5/mirrorbits/database"
 	"github.com/Myself5/mirrorbits/network"
 	. "github.com/Myself5/mirrorbits/testing"
@@ -137,11 +136,9 @@ func TestByRank_Less(t *testing.T) {
 	/* */
 
 	c = network.GeoIPRecord{
-		GeoIPRecord: &geoip.GeoIPRecord{
-			CountryCode:   "FR",
-			ContinentCode: "EU",
-		},
-		ASNum: 4444,
+		CountryCode:   "FR",
+		ContinentCode: "EU",
+		ASNum:         4444,
 	}
 	if !c.IsValid() {
 		t.Fatalf("GeoIPRecord is supposed to be valid")
@@ -231,10 +228,9 @@ func TestByRank_Less(t *testing.T) {
 	/* continentcode */
 
 	c = network.GeoIPRecord{
-		GeoIPRecord: &geoip.GeoIPRecord{
-			ContinentCode: "EU",
-		},
-		ASNum: 4444,
+		ContinentCode: "EU",
+		ASNum:         4444,
+		CountryCode:   "XX",
 	}
 
 	m = Mirrors{
@@ -265,11 +261,9 @@ func TestByRank_Less(t *testing.T) {
 	/* */
 
 	c = network.GeoIPRecord{
-		GeoIPRecord: &geoip.GeoIPRecord{
-			CountryCode:   "FR",
-			ContinentCode: "EU",
-		},
-		ASNum: 4444,
+		CountryCode:   "FR",
+		ContinentCode: "EU",
+		ASNum:         4444,
 	}
 
 	m = Mirrors{
@@ -519,3 +513,65 @@ func TestSetMirrorState(t *testing.T) {
 	}
 }
 
+<<<<<<< HEAD
+=======
+func TestGetMirrorMapUrl(t *testing.T) {
+	config.SetConfiguration(&config.Configuration{})
+
+	m := Mirrors{
+		Mirror{
+			ID:        "M0",
+			Latitude:  -80.0,
+			Longitude: 80.0,
+		},
+		Mirror{
+			ID:        "M1",
+			Latitude:  -60.0,
+			Longitude: 60.0,
+		},
+		Mirror{
+			ID:        "M2",
+			Latitude:  -40.0,
+			Longitude: 40.0,
+		},
+		Mirror{
+			ID:        "M3",
+			Latitude:  -20.0,
+			Longitude: 20.0,
+		},
+	}
+
+	c := network.GeoIPRecord{
+		CountryCode: "XX",
+		ASNum:       4444,
+	}
+
+	result := GetMirrorMapURL(m, c)
+
+	if !strings.HasPrefix(result, "//maps.googleapis.com") {
+		t.Fatalf("Bad format")
+	}
+
+	if !strings.Contains(result, "color:red") {
+		t.Fatalf("Missing client marker?")
+	}
+
+	if strings.Count(result, "label:") != len(m) {
+		t.Fatalf("Missing some mirror markers?")
+	}
+
+	if strings.Contains(result, "key=") {
+		t.Fatalf("Result should not contain an api key")
+	}
+
+	config.SetConfiguration(&config.Configuration{
+		GoogleMapsAPIKey: "qwerty",
+	})
+
+	result = GetMirrorMapURL(m, c)
+
+	if !strings.Contains(result, "key=qwerty") {
+		t.Fatalf("Result must contain the api key")
+	}
+}
+>>>>>>> f63dd13... Update tests for GeoIP2
