@@ -49,6 +49,7 @@ func defaultConfig() Configuration {
 		RepositoryScanInterval: 5,
 		MaxLinkHeaders:         10,
 		FixTimezoneOffsets:     false,
+		DummyFiles:             false,
 		Hashes: hashing{
 			SHA1:   false,
 			SHA256: true,
@@ -82,6 +83,7 @@ type Configuration struct {
 	RepositoryScanInterval  int        `yaml:"RepositoryScanInterval"`
 	MaxLinkHeaders          int        `yaml:"MaxLinkHeaders"`
 	FixTimezoneOffsets      bool       `yaml:"FixTimezoneOffsets"`
+	DummyFiles              bool       `yaml:"DummyFiles"`
 	Hashes                  hashing    `yaml:"Hashes"`
 	DisallowRedirects       bool       `yaml:"DisallowRedirects"`
 	WeightDistributionRange float32    `yaml:"WeightDistributionRange"`
