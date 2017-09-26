@@ -4,8 +4,10 @@
 package scan
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
+	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -60,6 +62,14 @@ type scan struct {
 	identifier  string
 	filesTmpKey string
 	count       uint
+}
+
+type DummyFile struct {
+	Size    int64  `json:"Size"`
+	ModTime string `json:"ModTime"`
+	Sha1    string `json:"Sha1"`
+	Sha256  string `json:"Sha256"`
+	Md5     string `json:"Md5"`
 }
 
 // IsScanning returns true is a scan is already in progress for the given mirror
@@ -237,10 +247,43 @@ func (s *sourcescanner) walkSource(conn redis.Conn, path string, f os.FileInfo, 
 		return nil, nil
 	}
 
+	var dfData DummyFile
+	dummyFile := GetConfig().DummyFiles
+
 	d := new(filedata)
 	d.path = path[len(GetConfig().Repository):]
-	d.size = f.Size()
-	d.modTime = f.ModTime()
+
+	if dummyFile {
+		raw, err := ioutil.ReadFile(path)
+		if err != nil {
+			fmt.Println(err.Error())
+			fmt.Println("Failed to read file, DELETING!")
+			os.Remove(path)
+			fmt.Println("==> done deleting file")
+			return nil, err
+		}
+
+		var c []DummyFile
+		err = json.Unmarshal(raw, &c)
+		if err != nil {
+    		log.Errorf("error decoding json: %v", err)
+    		if e, ok := err.(*json.SyntaxError); ok {
+        		log.Errorf("syntax error at byte offset %d", e.Offset)
+    		}
+    		log.Errorf("json response: %q", c)
+   			return nil, err
+		}
+
+		dfData = c[0]
+		d.size =  dfData.Size
+		d.modTime, err = time.Parse("2006-01-02 15:04:05.999999999 -0700 MST", dfData.ModTime)
+		if err != nil {
+			fmt.Println(err)
+		}
+	} else {
+		d.size = f.Size()
+		d.modTime = f.ModTime()
+	}
 
 	// Get the previous file properties
 	properties, err := redis.Strings(conn.Do("HMGET", fmt.Sprintf("FILE_%s", d.path), "size", "modTime", "sha1", "sha256", "md5"))
@@ -263,21 +306,27 @@ func (s *sourcescanner) walkSource(conn redis.Conn, path string, f os.FileInfo, 
 		(GetConfig().Hashes.MD5 && len(md5) == 0)
 
 	if rehash || size != d.size || !modTime.Equal(d.modTime) {
-		h, err := filesystem.HashFile(GetConfig().Repository + d.path)
-		if err != nil {
-			log.Warningf("%s: hashing failed: %s", d.path, err.Error())
+		if dummyFile {
+			d.sha1 = dfData.Sha1
+			d.sha256 = dfData.Sha256
+			d.md5 = dfData.Md5
 		} else {
-			d.sha1 = h.Sha1
-			d.sha256 = h.Sha256
-			d.md5 = h.Md5
-			if len(d.sha1) > 0 {
-				log.Infof("%s: SHA1 %s", d.path, d.sha1)
-			}
-			if len(d.sha256) > 0 {
-				log.Infof("%s: SHA256 %s", d.path, d.sha256)
-			}
-			if len(d.md5) > 0 {
-				log.Infof("%s: MD5 %s", d.path, d.md5)
+			h, err := filesystem.HashFile(GetConfig().Repository + d.path)
+			if err != nil {
+				log.Warningf("%s: hashing failed: %s", d.path, err.Error())
+			} else {
+				d.sha1 = h.Sha1
+				d.sha256 = h.Sha256
+				d.md5 = h.Md5
+				if len(d.sha1) > 0 {
+					log.Infof("%s: SHA1 %s", d.path, d.sha1)
+				}
+				if len(d.sha256) > 0 {
+					log.Infof("%s: SHA256 %s", d.path, d.sha256)
+				}
+				if len(d.md5) > 0 {
+					log.Infof("%s: MD5 %s", d.path, d.md5)
+				}
 			}
 		}
 	} else {
