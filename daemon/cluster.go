@@ -11,9 +11,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/etix/mirrorbits/database"
-	"github.com/etix/mirrorbits/mirrors"
-	"github.com/etix/mirrorbits/utils"
+	"github.com/Myself5/mirrorbits/database"
+	"github.com/Myself5/mirrorbits/mirrors"
+	"github.com/Myself5/mirrorbits/utils"
 )
 
 const (

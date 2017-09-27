@@ -10,9 +10,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/etix/mirrorbits/database"
-	"github.com/etix/mirrorbits/filesystem"
-	"github.com/etix/mirrorbits/mirrors"
+	"github.com/Myself5/mirrorbits/database"
+	"github.com/Myself5/mirrorbits/filesystem"
+	"github.com/Myself5/mirrorbits/mirrors"
 )
 
 /*

@@ -10,7 +10,7 @@ import (
 	"time"
 
 	"github.com/etix/goftp"
-	"github.com/etix/mirrorbits/utils"
+	"github.com/Myself5/mirrorbits/utils"
 	"github.com/garyburd/redigo/redis"
 )
 

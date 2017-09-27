@@ -10,9 +10,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/etix/mirrorbits/database"
-	"github.com/etix/mirrorbits/mirrors"
-	. "github.com/etix/mirrorbits/testing"
+	"github.com/Myself5/mirrorbits/database"
+	"github.com/Myself5/mirrorbits/mirrors"
+	. "github.com/Myself5/mirrorbits/testing"
 )
 
 func TestStart(t *testing.T) {
