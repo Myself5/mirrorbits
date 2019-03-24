@@ -8,7 +8,7 @@ import (
 	"net/url"
 	"strings"
 
-	. "github.com/etix/mirrorbits/config"
+	. "github.com/Myself5/mirrorbits/config"
 )
 
 // RequestType defines the type of the request

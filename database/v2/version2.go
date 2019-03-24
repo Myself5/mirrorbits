@@ -6,8 +6,8 @@ package v2
 import (
 	"strings"
 
-	"github.com/etix/mirrorbits/core"
-	"github.com/etix/mirrorbits/database/interfaces"
+	"github.com/Myself5/mirrorbits/core"
+	"github.com/Myself5/mirrorbits/database/interfaces"
 	"github.com/gomodule/redigo/redis"
 	"github.com/pkg/errors"
 )

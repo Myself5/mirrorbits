@@ -7,8 +7,8 @@ import (
 	"errors"
 	"time"
 
-	"github.com/etix/mirrorbits/core"
-	"github.com/etix/mirrorbits/database/upgrader"
+	"github.com/Myself5/mirrorbits/core"
+	"github.com/Myself5/mirrorbits/database/upgrader"
 	"github.com/gomodule/redigo/redis"
 )
 

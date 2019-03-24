@@ -15,8 +15,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/etix/mirrorbits/core"
-	"github.com/etix/mirrorbits/utils"
+	"github.com/Myself5/mirrorbits/core"
+	"github.com/Myself5/mirrorbits/utils"
 	"github.com/gomodule/redigo/redis"
 )
 

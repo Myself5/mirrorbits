@@ -13,11 +13,11 @@ import (
 	"strconv"
 	"time"
 
-	. "github.com/etix/mirrorbits/config"
-	"github.com/etix/mirrorbits/core"
-	"github.com/etix/mirrorbits/database"
-	"github.com/etix/mirrorbits/mirrors"
-	"github.com/etix/mirrorbits/utils"
+	. "github.com/Myself5/mirrorbits/config"
+	"github.com/Myself5/mirrorbits/core"
+	"github.com/Myself5/mirrorbits/database"
+	"github.com/Myself5/mirrorbits/mirrors"
+	"github.com/Myself5/mirrorbits/utils"
 )
 
 var (

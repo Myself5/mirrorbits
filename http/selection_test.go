@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	. "github.com/etix/mirrorbits/config"
-	"github.com/etix/mirrorbits/filesystem"
-	"github.com/etix/mirrorbits/network"
-	"github.com/etix/mirrorbits/mirrors"
+	. "github.com/Myself5/mirrorbits/config"
+	"github.com/Myself5/mirrorbits/filesystem"
+	"github.com/Myself5/mirrorbits/network"
+	"github.com/Myself5/mirrorbits/mirrors"
 )
 
 var noFileInfo *filesystem.FileInfo
