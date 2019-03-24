@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/etix/mirrorbits.svg?branch=master)](https://travis-ci.org/etix/mirrorbits)
-[![Go Report Card](https://goreportcard.com/badge/github.com/etix/mirrorbits)](https://goreportcard.com/report/github.com/etix/mirrorbits)
+[![Build Status](https://travis-ci.org/Myself5/mirrorbits.svg?branch=master)](https://travis-ci.org/Myself5/mirrorbits)
+[![Go Report Card](https://goreportcard.com/badge/github.com/Myself5/mirrorbits)](https://goreportcard.com/report/github.com/Myself5/mirrorbits)
 
 Mirrorbits
 ===========
@@ -65,30 +65,30 @@ Yet some things might change before the 1.0 release. If you intend to deploy Mir
 
 ## Upgrading
 
-Before upgrading to the latest version, please check [this guide](https://github.com/etix/mirrorbits/wiki/Upgrade-Guide).
+Before upgrading to the latest version, please check [this guide](https://github.com/Myself5/mirrorbits/wiki/Upgrade-Guide).
 
 ## Installation
 
-You can either get a [prebuilt version](https://github.com/etix/mirrorbits/releases) or choose to build it yourself.
+You can either get a [prebuilt version](https://github.com/Myself5/mirrorbits/releases) or choose to build it yourself.
 
 ### Docker
 
-A docker "quick start" can be found [on the wiki](https://github.com/etix/mirrorbits/wiki/Running-within-Docker).
+A docker "quick start" can be found [on the wiki](https://github.com/Myself5/mirrorbits/wiki/Running-within-Docker).
 
 ### Manual build
 
 
 Go >= 1.11:
 ```
-$ git clone https://github.com/etix/mirrorbits.git
+$ git clone https://github.com/Myself5/mirrorbits.git
 $ cd mirrorbits
 $ sudo make install
 ```
 
 Go < 1.11:
 ```
-$ go get -u github.com/etix/mirrorbits
-$ cd $GOPATH/src/github.com/etix/mirrorbits
+$ go get -u github.com/Myself5/mirrorbits
+$ cd $GOPATH/src/github.com/Myself5/mirrorbits
 $ sudo make install
 ```
 
